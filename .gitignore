@@ -1,0 +1,26 @@
+# Node & Frontend
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Python & Backend
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+server/data/uploads/*
+server/data/stems/*
+server/data/exports/*
+!server/data/uploads/.gitkeep
+!server/data/stems/.gitkeep
+!server/data/exports/.gitkeep
+
+# System & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log

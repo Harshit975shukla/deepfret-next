@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: deepfret-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./server/data:/app/data
+    environment:
+      - ENVIRONMENT=development
+      - SAMPLE_RATE=22050
+    restart: unless-stopped
+
+  client:
+    image: node:20-alpine
+    container_name: deepfret-frontend
+    working_dir: /app
+    volumes:
+      - ./client:/app
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - server
