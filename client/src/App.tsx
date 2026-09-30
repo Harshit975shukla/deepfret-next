@@ -113,9 +113,13 @@ export const App: React.FC = () => {
     }
   };
 
-  // Find currently active note for mic coach
+  // Find currently active note and chord for mic coach
   const activeNote = transcription.events.find(
     (e) => currentTime >= e.time && currentTime < e.time + Math.max(0.15, e.duration)
+  ) || null;
+
+  const activeChord = transcription.chords.find(
+    (c) => Math.abs(currentTime - c.time) < 1.5
   ) || null;
 
   const handleUpdateEvents = (newEvents: NoteEvent[]) => {
@@ -224,6 +228,7 @@ export const App: React.FC = () => {
             {currentTab === 'coach' && (
               <MicPitchEvaluator
                 activeNote={activeNote}
+                activeChord={activeChord}
                 tuningMidi={transcription.tuning_midi}
               />
             )}
